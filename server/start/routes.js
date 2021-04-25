@@ -1,5 +1,8 @@
 'use strict'
 
+const { route } = require('@adonisjs/framework/src/Route/Manager')
+const UserController = require('../app/Controllers/Http/UserController')
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -16,4 +19,14 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+// Route.get('/',({request})=>
+// {
+//     return{
+//         greeting:'Welcome to Adonis project'
+//     }
+// })
+
+Route.group(()=>{
+    Route.post('auth/register','UserController.register');
+    Route.post('auth/login','UserController.login');
+}).prefix('api');
